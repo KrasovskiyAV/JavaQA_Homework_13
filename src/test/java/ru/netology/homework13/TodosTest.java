@@ -8,7 +8,7 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
 public class TodosTest {
 
-    SimpleTask simpleTask = new SimpleTask(5, "Позвонить родителям");
+    SimpleTask simpleTask = new SimpleTask(5, "Позвонить родителям; купить Хлеб");
 
     String[] subtasks = {"Молоко", "Яйца", "Хлеб"};
     Epic epic = new Epic(55, subtasks);
@@ -78,6 +78,17 @@ public class TodosTest {
 
         Task[] expected = {};
         Task[] actual = todos.search("сметана");
+
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    public void shouldFindMatchIfNotOneMatches() {
+
+        todos.search("Хлеб");
+
+        Task[] expected = {simpleTask, epic};
+        Task[] actual = todos.search("Хлеб");
 
         assertArrayEquals(expected, actual);
     }
